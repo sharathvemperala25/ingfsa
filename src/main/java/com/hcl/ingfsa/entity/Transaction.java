@@ -21,6 +21,7 @@ public class Transaction {
 	@ManyToOne
 	@JoinColumn(name="customer_id")
 	private Account account;
+	private Double closingBalance;
 	public Long getTransactionId() {
 		return transactionId;
 	}
@@ -56,6 +57,12 @@ public class Transaction {
 	}
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+	public Double getClosingBalance() {
+		return closingBalance;
+	}
+	public void setClosingBalance(Double closingBalance) {
+		this.closingBalance = closingBalance;
 	}
 	
 	

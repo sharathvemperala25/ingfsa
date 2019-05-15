@@ -1,11 +1,14 @@
 package com.hcl.ingfsa.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +28,7 @@ public class TransactionController {
 	@Autowired
 	AccountService accountService;
 	
-	@RequestMapping("/addTransaction")
+	@PostMapping("/addTransaction")
 	public ResponseEntity insertTransaction(@RequestParam Long customerId,@RequestBody Transaction transaction) {
 	
 		Optional<Account> optionalAccount = accountService.getAccountByCustomerId(customerId);
@@ -37,5 +40,10 @@ public class TransactionController {
 		return new ResponseEntity("Transaction failed because"+customerId+" is not there",HttpStatus.BAD_REQUEST);
 	}
 	
+	
+	@GetMapping("/viewMonthlySpendAnalizer")
+	public List<?> viewMonthlySpendAnalizer(Long customerId){
+		return transactionService.viewMonthlySpendAnalizer(customerId);
+	}
 
 }

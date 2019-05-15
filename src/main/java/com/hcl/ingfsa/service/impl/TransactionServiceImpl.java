@@ -1,6 +1,9 @@
 package com.hcl.ingfsa.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.hcl.ingfsa.Repository.AccountRepository;
@@ -29,10 +32,17 @@ public class TransactionServiceImpl implements TransactionService {
 			account.setAccountBalance(account.getAccountBalance()-transaction.getAmount());
 		}
 		
-		
+		accountRepository.save(account);
 		transaction.setAccount(account);
+		transaction.setClosingBalance(account.getAccountBalance());
 		
 		return transactionRepository.save(transaction);
+	}
+
+	@Override
+	public List<?> viewMonthlySpendAnalizer(Long customerId) {
+		
+		return transactionRepository.viewMonthlySpendAnalizer(customerId);
 	}
 	
 	
